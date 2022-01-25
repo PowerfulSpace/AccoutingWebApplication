@@ -1,0 +1,86 @@
+﻿
+@model IQueryable<Employe>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+
+
+
+<p>
+    <a asp-action="Create">Create new</a>
+</p>
+
+
+<form asp-action="Get" method="get">
+    <p>
+        <input type="search" placeholder="Enter Employee Name" value="" name="Empsearch" style="width:500px" />
+        <input type="submit" value="Search" class=" btn btn-outline-success" />
+        <a asp-action="Index">Get All Employees</a>
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>FirstName</td>
+            <td>LastName</td>
+            <td>Surname</td>
+            <td>Position</td>
+            <td>DateEmployeeAdded</td>
+            <td>DateChangeEmployee</td>
+            <td>EmploymentDate</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @if (Model.Any())
+            {
+        <tr>
+
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Surname</td>
+            <td>@item.Position</td>
+            <td>@item.DateEmployeeAdded</td>
+            <td>@item.DateChangeEmployee</td>
+            <td>@item.EmploymentDate</td>
+
+            <td>
+                <form asp-controller="Home" asp-action="EditEmploye" asp-route-id="@item.Id" method="POST">
+                    <input class="btn btn-outline-success" type="submit" value="Редактировать" />
+                </form>
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="DeleteEmploye" asp-route-id="@item.Id" method="POST">
+                    <input class="btn btn-outline-success" type="submit" value="Удалить" />
+                </form>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+
+</table>
+
+<div>
+    <form asp-controller="Home" asp-action="EditEmploye" method="POST">
+
+        <input style="width:150px" placeholder="FirstName" />
+        <input style="width:150px" placeholder="LastName" />
+        <input style="width:150px" placeholder="Surname" />
+        <input style="width:150px" placeholder="Position" />
+        <input style="width:150px" placeholder="DateEmployeeAdded" />
+        <input style="width:150px" placeholder="DateChangeEmployee" />
+        <input style="width:150px" placeholder="EmploymentDate" />
+
+        <input class="btn btn-outline-success" type="submit" value="Добавить сотрудника" />
+    </form>
+</div>
+
